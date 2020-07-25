@@ -13,15 +13,15 @@ router.post('/', async (req, res) => {
 		const collection = db.collection('users')
 
 		const userExists = await collection.findOne({ email: req.body.email })
-		if (userExists) return res.json({ message: 'User already exists' })
+		if (userExists) return res.send({ message: 'User already exists' })
 
 		const password = req.body.password
 		const salt = await bcrypt.genSalt(10)
 		req.body.password = await bcrypt.hash(password, salt)
 		await collection.insertOne(req.body)
-		res.json({ message: 'User registration successful' })
+		res.send({ message: 'User registration successful' })
 	} catch (err) {
-		res.json({ message: 'User registration error' })
+		res.send({ message: 'User registration error' })
 	}
 })
 
