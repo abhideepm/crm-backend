@@ -1,13 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const bodyParser = require('body-parser')
-const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const connectDB = require('../config/db')
 require('dotenv').config()
-
-router.use(bodyParser.json(), cors())
 
 router.post('/', async (req, res) => {
 	try {

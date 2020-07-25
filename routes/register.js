@@ -1,11 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const bodyParser = require('body-parser')
-const cors = require('cors')
 const bcrypt = require('bcrypt')
 const connectDB = require('../config/db')
-
-router.use(bodyParser.json(), cors())
 
 router.post('/', async (req, res) => {
 	try {

@@ -1,15 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
-const bodyParser = require('body-parser')
-const cors = require('cors')
 const connectDB = require('../config/db')
 const bcrypt = require('bcrypt')
-const { ObjectId } = require('mongodb')
 
 require('dotenv').config()
-
-router.use(bodyParser.json(), cors())
 
 const email = process.env.MAILER_EMAIL
 const password = process.env.MAILER_PASSWORD
