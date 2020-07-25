@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
 			res.json({ message: 'Success', token: jwtToken })
 		} else throw new Error()
 	} catch (err) {
-		res.json({ message: 'Error' })
+		res.json({ message: 'Login Error' })
 	}
 })
 

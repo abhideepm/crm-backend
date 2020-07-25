@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 		const salt = await bcrypt.genSalt(10)
 		req.body.password = await bcrypt.hash(password, salt)
 		await collection.insertOne(req.body)
-		res.send({ message: 'User registration successful' })
+		res.send({ message: 'Success' })
 	} catch (err) {
 		res.send({ message: 'User registration error' })
 	}
