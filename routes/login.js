@@ -22,10 +22,10 @@ router.post('/', async (req, res) => {
 				process.env.secret,
 				{ expiresIn: '6h' }
 			)
-			res.send({ message: 'Success', token: jwtToken })
+			res.json({ message: 'Success', token: jwtToken })
 		} else throw new Error()
 	} catch (err) {
-		res.send({ message: 'Error' })
+		res.json({ message: 'Error' })
 	}
 })
 
