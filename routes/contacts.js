@@ -60,20 +60,16 @@ router.put(
 	}
 )
 
-router.delete(
-	'/:id',
-	[auth, permit('Employee', 'Manager', 'Admin')],
-	async (req, res) => {
-		const id = req.params.id
-		try {
-			const db = await connectDB()
-			const collection = db.collection('contacts')
-			await collection.findOneAndDelete({ _id: ObjectId(id) })
-			res.json({ message: 'Success' })
-		} catch (err) {
-			res.json({ message: 'Error deleting contacts' })
-		}
+router.delete('/:id', [auth, permit('Manager', 'Admin')], async (req, res) => {
+	const id = req.params.id
+	try {
+		const db = await connectDB()
+		const collection = db.collection('contacts')
+		await collection.findOneAndDelete({ _id: ObjectId(id) })
+		res.json({ message: 'Success' })
+	} catch (err) {
+		res.json({ message: 'Error deleting contacts' })
 	}
-)
+})
 
 module.exports = router
