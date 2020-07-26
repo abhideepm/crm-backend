@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const jwt = require('jsonwebtoken')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
@@ -26,16 +27,16 @@ app.use('/leads', leadRouter)
 app.use('/contacts', contactRouter)
 app.use('/requests', contactRouter)
 
-app.get('/auth',(req,res)=>{
-  const token = req.headers.authenticate
+app.get('/auth', async (req, res) => {
+	const token = req.headers.authenticate
 	try {
 		if (!token) {
 			return res.status(401).json({ message: 'Unauthorized access' })
 		}
 
 		const user = await jwt.verify(token, process.env.secret)
-    const info = {}
-    info[id] = user.id
+		const info = {}
+		info[id] = user.id
 		info[email] = user.email
 		info[role] = user.role
 		res.json(info)
