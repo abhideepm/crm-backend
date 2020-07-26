@@ -69,7 +69,7 @@ router.post('/forgotpassword', async (req, res) => {
 				upsert: true,
 			}
 		)
-		const url = `localhost:3000/resetpassword/${token}`
+		const url = `http://localhost:3000/resetpassword/${token}`
 		const mailOptions = {
 			from: `CRM Support<crmsupport@crm.com>`,
 			to: user.email,
