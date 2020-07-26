@@ -13,12 +13,9 @@ const contactRouter = require('./routes/contacts')
 const requestRouter = require('./routes/serviceRequests')
 require('dotenv').config()
 
-const corsOptions = {
-	origin: 'https://dazzling-agnesi-114948.netlify.app/',
-}
-
 const app = express()
-app.use(bodyParser.json(), cors(corsOptions))
+app.use(bodyParser.json(), cors())
+app.options('https://dazzling-agnesi-114948.netlify.app/', cors())
 
 const PORT = process.env.PORT || 5000
 
