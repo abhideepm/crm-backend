@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 			const jwtToken = jwt.sign(
 				{ id: _id, email: email, role: type },
 				process.env.secret,
-				{ expiresIn: '6h' }
+				{ expiresIn: '2 days' }
 			)
 			res.json({ message: 'Success', token: jwtToken })
 		} else throw new Error()

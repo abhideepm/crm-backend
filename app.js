@@ -30,20 +30,17 @@ app.use('/requests', requestRouter)
 
 app.get('/auth', async (req, res) => {
 	const token = req.headers.authenticate
+	console.log(token)
 	try {
 		if (!token) {
 			return res.status(401).json({ message: 'Unauthorized access' })
 		}
 
 		const user = await jwt.verify(token, process.env.secret)
-		const info = {}
-		info[id] = user.id
-		info[email] = user.email
-		info[role] = user.role
-		res.json(info)
+		res.json({ ...user })
 	} catch (err) {
 		console.log('Error with middleware')
-		res.status(500).json({ message: 'Token Expired' })
+		res.json({ message: 'Token Expired' })
 	}
 })
 
