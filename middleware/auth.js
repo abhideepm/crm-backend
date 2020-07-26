@@ -9,9 +9,9 @@ const authenticate = async (req, res, next) => {
 		}
 
 		const user = await jwt.verify(token, process.env.secret)
-		req.id = user.id
-		req.email = user.email
-		req.role = user.role
+		req.body.id = user.id
+		req.body.email = user.email
+		req.body.role = user.role
 		next()
 	} catch (err) {
 		console.log('Error with middleware')
