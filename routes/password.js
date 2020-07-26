@@ -94,7 +94,7 @@ router.post('/resetpassword', async (req, res) => {
 			reset_password_token: token,
 			reset_password_expires: { $gt: Date.now() },
 		})
-		if (!user) return res.status(408).json({ message: 'Token expired' })
+		if (!user) return res.json({ message: 'Token expired' })
 
 		hash = await bcrypt.hash(password, 10)
 		await collection.findOneAndUpdate(
