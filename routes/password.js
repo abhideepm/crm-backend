@@ -97,8 +97,6 @@ router.post('/resetpassword', async (req, res) => {
 		if (!user) return res.status(408).json({ message: 'Token expired' })
 
 		hash = await bcrypt.hash(password, 10)
-		user.reset_password_token = undefined
-		user.reset_password_expires = undefined
 		await collection.findOneAndUpdate(
 			{ _id: user._id },
 			{
@@ -118,7 +116,7 @@ router.post('/resetpassword', async (req, res) => {
 			html: resetPasswordConfirmation(user.firstname),
 		}
 		sendMail(mailOptions)
-		res.json({ message: 'Password successfully updated' })
+		res.json({ message: 'Success' })
 	} catch (err) {
 		res.json({ message: error })
 	}
