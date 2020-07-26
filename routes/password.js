@@ -8,7 +8,6 @@ require('dotenv').config()
 
 const email = process.env.MAILER_EMAIL
 const password = process.env.MAILER_PASSWORD
-const url = 'abc'
 
 const forgotPasswordEmail = (firstname, url) =>
 	`<div>
@@ -70,7 +69,7 @@ router.post('/forgotpassword', async (req, res) => {
 				upsert: true,
 			}
 		)
-
+		const url = `localhost:3000/register/${token}`
 		const mailOptions = {
 			from: `CRM Support<crmsupport@crm.com>`,
 			to: user.email,
