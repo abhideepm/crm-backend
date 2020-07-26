@@ -4,7 +4,6 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken')
 
 const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
 const registerRouter = require('./routes/register')
 const loginRouter = require('./routes/login')
 const passwordRouter = require('./routes/password')
@@ -20,7 +19,6 @@ app.options('https://dazzling-agnesi-114948.netlify.app/', cors())
 const PORT = process.env.PORT || 5000
 
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
 app.use('/register', registerRouter)
 app.use('/login', loginRouter)
 app.use('/password', passwordRouter)
