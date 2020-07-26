@@ -9,7 +9,7 @@ const authenticate = async (req, res, next) => {
 		}
 
 		const user = await jwt.verify(token, process.env.secret)
-		req.UserId = user.id
+		req.userId = user.id
 		req.userEmail = user.email
 		req.userRole = user.role
 		next()
