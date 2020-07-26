@@ -1,49 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const nodemailer = require('nodemailer')
-const connectDB = require('../config/db')
 const bcrypt = require('bcrypt')
 
-require('dotenv').config()
-
-const email = process.env.MAILER_EMAIL
-const password = process.env.MAILER_PASSWORD
-
-const forgotPasswordEmail = (firstname, url) =>
-	`<div>
-		<h3>Dear ${firstname},</h3>
-		<p>You requested for a password reset.</p>
-		<p>Kindly use this <a href=${url}>link</a> to reset your password</p>
-		<br>
-		<p>Thank You</p>
-	</div>`
-
-const resetPasswordConfirmation = firstname =>
-	`<div>
-		<h3>Dear ${firstname},</h3>
-		<p>Your password has been successful reset, you can now login with your new password.</p>
-		<br>
-		<div>
-			Cheers!
-		</div>
-	</div>`
-
-const sendMail = async mailOptions => {
-	const transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-			user: email,
-			pass: password,
-		},
-	})
-
-	try {
-		await transporter.sendMail(mailOptions)
-		console.log('Email sent')
-	} catch (err) {
-		console.log('Email not sent')
-	}
-}
+const connectDB = require('../config/db')
+const sendMail = require('../config/sendMail')
+const forgotPassword = require('../template/forgotPassword')
+const resetPassword = require('../template/resetPassword')
 
 router.post('/forgotpassword', async (req, res) => {
 	try {
@@ -74,7 +36,7 @@ router.post('/forgotpassword', async (req, res) => {
 			from: `CRM Support<crmsupport@crm.com>`,
 			to: user.email,
 			subject: `Reset Password request`,
-			html: forgotPasswordEmail(user.firstname, url),
+			html: forgotPassword(user.firstname, url),
 		}
 
 		await sendMail(mailOptions)
@@ -113,7 +75,7 @@ router.post('/resetpassword', async (req, res) => {
 			from: `CRM Support<crmsupport@crm.com>`,
 			to: user.email,
 			subject: `Reset Password Successful`,
-			html: resetPasswordConfirmation(user.firstname),
+			html: resetPassword(user.firstname),
 		}
 		sendMail(mailOptions)
 		res.json({ message: 'Success' })
