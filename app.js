@@ -11,12 +11,13 @@ const passwordRouter = require('./routes/password')
 const leadRouter = require('./routes/leads')
 const contactRouter = require('./routes/contacts')
 const requestRouter = require('./routes/serviceRequests')
-const auth = require('../middleware/auth')
+require('dotenv').config()
 
 const app = express()
 app.use(bodyParser.json(), cors())
+app.options('*', cors())
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
@@ -25,7 +26,7 @@ app.use('/login', loginRouter)
 app.use('/password', passwordRouter)
 app.use('/leads', leadRouter)
 app.use('/contacts', contactRouter)
-app.use('/requests', contactRouter)
+app.use('/requests', requestRouter)
 
 app.get('/auth', async (req, res) => {
 	const token = req.headers.authenticate
