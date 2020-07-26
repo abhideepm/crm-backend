@@ -10,6 +10,7 @@ const passwordRouter = require('./routes/password')
 const leadRouter = require('./routes/leads')
 const contactRouter = require('./routes/contacts')
 const requestRouter = require('./routes/serviceRequests')
+const auth = require('../middleware/auth')
 
 const app = express()
 app.use(bodyParser.json(), cors())
@@ -24,5 +25,7 @@ app.use('/password', passwordRouter)
 app.use('/leads', leadRouter)
 app.use('/contacts', contactRouter)
 app.use('/requests', contactRouter)
+
+app.route('/auth',auth)
 
 app.listen(PORT, () => console.log('Listening'))
