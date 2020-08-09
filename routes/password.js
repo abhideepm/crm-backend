@@ -47,8 +47,8 @@ router.post('/forgotpassword', async (req, res) => {
 	}
 })
 
-router.get('/tokenstatus', async (req, res) => {
-	const { token } = req.body
+router.get('/tokenstatus/:token', async (req, res) => {
+	const token = req.params.token
 	const db = await connectDB()
 	const collection = db.collection('users')
 	const user = await collection.findOne({
