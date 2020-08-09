@@ -51,6 +51,9 @@ router.put(
 					$set: {
 						...data,
 					},
+				},
+				{
+					returnNewDocument: true,
 				}
 			)
 			res.json(updateResponse.value)
