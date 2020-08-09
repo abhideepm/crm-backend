@@ -28,8 +28,8 @@ router.post(
 		try {
 			const db = await connectDB()
 			const collection = db.collection('leads')
-			await collection.insertOne(req.body)
-			res.json({ message: 'Success' })
+			const insertResponse = await collection.insertOne(req.body)
+			res.json(insertResponse.ops[0])
 		} catch (err) {
 			res.json({ message: 'Error adding leads' })
 		}
@@ -45,7 +45,7 @@ router.put(
 		try {
 			const db = await connectDB()
 			const collection = db.collection('leads')
-			await collection.findOneAndUpdate(
+			const updateResponse = await collection.findOneAndUpdate(
 				{ _id: ObjectId(id) },
 				{
 					$set: {
@@ -53,7 +53,7 @@ router.put(
 					},
 				}
 			)
-			res.json({ message: 'Success' })
+			res.json(updateResponse.value)
 		} catch (err) {
 			res.json({ message: 'Error modifying leads' })
 		}
@@ -65,8 +65,10 @@ router.delete('/:id', [auth, permit('Manager', 'Admin')], async (req, res) => {
 	try {
 		const db = await connectDB()
 		const collection = db.collection('leads')
-		await collection.findOneAndDelete({ _id: ObjectId(id) })
-		res.json({ message: 'Success' })
+		const deleteResponse = await collection.findOneAndDelete({
+			_id: ObjectId(id),
+		})
+		res.json(deleteResponse.value)
 	} catch (err) {
 		res.json({ message: 'Error deleting leads' })
 	}
