@@ -52,9 +52,7 @@ router.put(
 						...data,
 					},
 				},
-				{
-					returnNewDocument: true,
-				}
+				{ returnOriginal: false }
 			)
 			res.json(updateResponse.value)
 		} catch (err) {
