@@ -14,7 +14,7 @@ require('dotenv').config()
 
 const app = express()
 app.use(bodyParser.json(), cors())
-app.options('https://dazzling-agnesi-114948.netlify.app/', cors())
+// app.options('https://dazzling-agnesi-114948.netlify.app/', cors())
 
 const PORT = process.env.PORT || 5001
 
