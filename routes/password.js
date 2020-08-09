@@ -47,6 +47,18 @@ router.post('/forgotpassword', async (req, res) => {
 	}
 })
 
+router.get('/tokenstatus', async (req, res) => {
+	const { token } = req.body
+	const db = await connectDB()
+	const collection = db.collection('users')
+	const user = await collection.findOne({
+		reset_password_token: token,
+		reset_password_expires: { $gt: Date.now() },
+	})
+	if (!user) return res.json({ message: 'Token expired' })
+	return res.json({ message: 'Token accepted' })
+})
+
 router.post('/resetpassword', async (req, res) => {
 	try {
 		const { token, password } = req.body
@@ -54,9 +66,7 @@ router.post('/resetpassword', async (req, res) => {
 		const collection = db.collection('users')
 		const user = await collection.findOne({
 			reset_password_token: token,
-			reset_password_expires: { $gt: Date.now() },
 		})
-		if (!user) return res.json({ message: 'Token expired' })
 
 		hash = await bcrypt.hash(password, 10)
 		await collection.findOneAndUpdate(
