@@ -31,7 +31,7 @@ router.post('/forgotpassword', async (req, res) => {
 				upsert: true,
 			}
 		)
-		const url = `https://dazzling-agnesi-114948.netlify.app/resetpassword/${token}`
+		const url = `https://crm-react-node.netlify.app/resetpassword/${token}`
 		const mailOptions = {
 			from: `CRM Support<crmsupport@crm.com>`,
 			to: user.email,
