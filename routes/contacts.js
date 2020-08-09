@@ -53,7 +53,7 @@ router.put(
 					},
 				}
 			)
-			res.json(updateResponse)
+			res.json(updateResponse.value)
 		} catch (err) {
 			res.json({ message: 'Error modifying contacts' })
 		}
@@ -68,7 +68,7 @@ router.delete('/:id', [auth, permit('Manager', 'Admin')], async (req, res) => {
 		const deleteResponse = await collection.findOneAndDelete({
 			_id: ObjectId(id),
 		})
-		res.json(deleteResponse)
+		res.json(deleteResponse.value)
 	} catch (err) {
 		res.json({ message: 'Error deleting contacts' })
 	}

@@ -16,7 +16,7 @@ const app = express()
 app.use(bodyParser.json(), cors())
 app.options('https://dazzling-agnesi-114948.netlify.app/', cors())
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 
 app.use('/', indexRouter)
 app.use('/register', registerRouter)
